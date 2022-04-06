@@ -4,7 +4,7 @@ import styled from "styled-components";
 import CommonButton from "./components/CommonButton";
 import LogOutButton from "./components/LogOutButton";
 import { auth } from "./fbase";
-import { naverState } from "./recoil/atoms";
+import { kakaoState, naverState } from "./recoil/atoms";
 
 const Wrap = styled.div`
   display: flex;
@@ -58,9 +58,17 @@ function App() {
   const authService = auth;
   const [userName, setUserName] = useState<string | null>(null);
   const [naverToken, setNaverToken] = useRecoilState(naverState);
+  const [kakaoCode, setKakaoCode] = useRecoilState(kakaoState);
 
   const getNaverToken = (naverLogIn: any) => {
     setNaverToken(naverLogIn.oauthParams.access_token);
+  };
+
+  const getKakaoCode = () => {
+    const code = new URL(window.location.href).searchParams.get("code");
+    if (code) {
+      setKakaoCode(code);
+    }
   };
 
   useEffect(() => {
@@ -72,6 +80,8 @@ function App() {
         setUserName(null);
       }
     });
+
+    getKakaoCode();
   }, []);
 
   useEffect(() => {
@@ -91,7 +101,7 @@ function App() {
 
   return (
     <Wrap>
-      {!userName && !naverToken ? (
+      {!userName && !naverToken && !kakaoCode ? (
         <Main>
           <Title>✨Social LogIn✨</Title>
           <h3>원하는 소셜미디어 계정으로 로그인하세요.</h3>

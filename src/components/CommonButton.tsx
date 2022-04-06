@@ -5,9 +5,11 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import React from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { PropsType, ProviderType } from "../App";
 import { auth } from "../fbase";
+import { kakaoURL } from "../recoil/atoms";
 
 const Button = styled.button`
   flex-grow: 1;
@@ -25,6 +27,8 @@ const Button = styled.button`
 `;
 
 const CommonButton = ({ props }: PropsType) => {
+  const kakaoAuthURL = useRecoilValue(kakaoURL);
+
   const handleLogIn = (event: React.FormEvent<HTMLButtonElement>) => {
     const {
       currentTarget: { innerHTML },
@@ -38,7 +42,7 @@ const CommonButton = ({ props }: PropsType) => {
       provider = new GithubAuthProvider();
       signInWithPopup(auth, provider);
     } else if (innerHTML === "Kakao") {
-      console.log("카카오 로그인 요청");
+      window.location.href = kakaoAuthURL;
     }
   };
 
