@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/social-login-react/static/js/main.bb0d3760.js",
+    "main.js": "/social-login-react/static/js/main.fa2c3542.js",
     "index.html": "/social-login-react/index.html",
-    "main.bb0d3760.js.map": "/social-login-react/static/js/main.bb0d3760.js.map"
+    "main.fa2c3542.js.map": "/social-login-react/static/js/main.fa2c3542.js.map"
   },
   "entrypoints": [
-    "static/js/main.bb0d3760.js"
+    "static/js/main.fa2c3542.js"
   ]
 }
