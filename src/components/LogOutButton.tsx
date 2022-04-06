@@ -1,7 +1,10 @@
+import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { auth } from "../fbase";
+import { naverState } from "../recoil/atoms";
 
-const Button = styled.button`
+export const Button = styled.button`
   width: 150px;
   border: none;
   background-color: #2f3542;
@@ -17,8 +20,18 @@ const Button = styled.button`
 `;
 
 const LogOutButton = () => {
+  const [naverToken, setNaverToken] = useRecoilState(naverState);
+
+  const navigate = useNavigate();
   const handleLogOut = () => {
-    auth.signOut();
+    if (naverToken !== "") {
+      setNaverToken("");
+      navigate("/");
+      // 새로고침 하지않으면 네이버로그인 버튼이 사라짐. 렌더링문제인듯함
+      window.location.reload();
+    } else {
+      auth.signOut();
+    }
   };
 
   return <Button onClick={handleLogOut}>LogOut</Button>;

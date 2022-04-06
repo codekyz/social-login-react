@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import CommonButton from "./components/CommonButton";
 import LogOutButton from "./components/LogOutButton";
 import { auth } from "./fbase";
+import { naverState } from "./recoil/atoms";
 
 const Wrap = styled.div`
   display: flex;
@@ -38,15 +40,31 @@ const Buttons = styled.section`
   margin-top: 60px;
 `;
 
+declare global {
+  interface Window {
+    naver_id_login?: any;
+  }
+}
+
 export type ProviderType = {
   providerName: string;
+};
+
+export type PropsType = {
+  props: ProviderType;
 };
 
 function App() {
   const authService = auth;
   const [userName, setUserName] = useState<string | null>(null);
+  const [naverToken, setNaverToken] = useRecoilState(naverState);
+
+  const getNaverToken = (naverLogIn: any) => {
+    setNaverToken(naverLogIn.oauthParams.access_token);
+  };
 
   useEffect(() => {
+    // Firebase를 이용한 구글, 깃허브 소셜 로그인 확인
     authService.onAuthStateChanged((user) => {
       if (user) {
         setUserName(user.displayName);
@@ -56,17 +74,32 @@ function App() {
     });
   }, []);
 
+  useEffect(() => {
+    // 네이버 소셜 로그인 초기화
+    const naverLogIn = new window.naver_id_login(
+      process.env.REACT_APP_NAVER_CLIENT_ID,
+      encodeURI("http://localhost:3000")
+    );
+    const state = naverLogIn.getUniqState();
+    naverLogIn.setButton("green", 3, 43);
+    naverLogIn.setDomain("http://localhose:3000");
+    naverLogIn.setState(state);
+    naverLogIn.init_naver_id_login();
+
+    getNaverToken(naverLogIn);
+  }, []);
+
   return (
     <Wrap>
-      {!userName ? (
+      {!userName && !naverToken ? (
         <Main>
           <Title>✨Social LogIn✨</Title>
           <h3>원하는 소셜미디어 계정으로 로그인하세요.</h3>
           <Buttons>
             <CommonButton props={{ providerName: "Google" }}></CommonButton>
             <CommonButton props={{ providerName: "GitHub" }}></CommonButton>
-            <CommonButton props={{ providerName: "Naver" }}></CommonButton>
             <CommonButton props={{ providerName: "Kakao" }}></CommonButton>
+            <div id="naver_id_login"></div>
           </Buttons>
         </Main>
       ) : (

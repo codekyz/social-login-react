@@ -6,7 +6,7 @@ import {
 } from "firebase/auth";
 import React from "react";
 import styled from "styled-components";
-import { ProviderType } from "../App";
+import { PropsType, ProviderType } from "../App";
 import { auth } from "../fbase";
 
 const Button = styled.button`
@@ -24,24 +24,19 @@ const Button = styled.button`
   }
 `;
 
-type PropsType = {
-  props: ProviderType;
-};
-
 const CommonButton = ({ props }: PropsType) => {
   const handleLogIn = (event: React.FormEvent<HTMLButtonElement>) => {
     const {
       currentTarget: { innerHTML },
     } = event;
     let provider: AuthProvider;
+
     if (innerHTML === "Google") {
       provider = new GoogleAuthProvider();
       signInWithPopup(auth, provider);
     } else if (innerHTML === "GitHub") {
       provider = new GithubAuthProvider();
       signInWithPopup(auth, provider);
-    } else if (innerHTML === "Naver") {
-      console.log("네이버 로그인 요청");
     } else if (innerHTML === "Kakao") {
       console.log("카카오 로그인 요청");
     }
