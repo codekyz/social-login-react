@@ -7,7 +7,7 @@ import {
 import React from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { PropsType, ProviderType } from "../App";
+import { PropsType } from "../App";
 import { auth } from "../fbase";
 import { kakaoURL } from "../recoil/atoms";
 
