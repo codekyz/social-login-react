@@ -2,7 +2,7 @@
 
 ## 개요
 
-`React.js` `styled-components` `recoil` `Firebase/auth` `Naver open API` `Kakao open API`
+`React.js` `Typescript` `styled-components` `recoil` `Firebase/auth` `Naver open API` `Kakao open API`
 
 - 위 기술 및 도구를 이용해서 구현했습니다.
 
