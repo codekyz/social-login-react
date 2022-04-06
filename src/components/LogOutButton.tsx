@@ -1,8 +1,9 @@
+import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { auth } from "../fbase";
-import { kakaoState, naverState } from "../recoil/atoms";
+import { isLogIn, kakaoState, naverState } from "../recoil/atoms";
 
 export const Button = styled.button`
   width: 150px;
@@ -21,21 +22,21 @@ export const Button = styled.button`
 
 const LogOutButton = () => {
   const [naverToken, setNaverToken] = useRecoilState(naverState);
-  const [kakaoCode, setKaKaoCode] = useRecoilState(kakaoState);
+  const [kakaoCode, setKakaoCode] = useRecoilState(kakaoState);
 
   const navigate = useNavigate();
   const handleLogOut = () => {
-    if (naverToken !== "") {
+    if (naverToken) {
       setNaverToken("");
       navigate("/");
-      // 새로고침 하지않으면 네이버로그인 버튼이 사라짐. 렌더링문제인듯함
-      window.location.reload();
-    } else if (kakaoCode !== "") {
-      setKaKaoCode("");
+    } else if (kakaoCode) {
+      setKakaoCode("");
       navigate("/");
     } else {
       auth.signOut();
     }
+    window.location.reload();
+    // 새로고침 하지않으면 네이버로그인 버튼이 사라짐. 렌더링문제인듯함
   };
 
   return <Button onClick={handleLogOut}>LogOut</Button>;

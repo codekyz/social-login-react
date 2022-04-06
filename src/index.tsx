@@ -11,13 +11,12 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
+    <GlobalStyle />
     <RecoilRoot>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Routes>
           <Route path="/" element={<App />}></Route>
         </Routes>
-        <GlobalStyle />
-        <App />
       </BrowserRouter>
     </RecoilRoot>
   </React.StrictMode>
