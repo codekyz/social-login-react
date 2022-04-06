@@ -1,46 +1,14 @@
-# Getting Started with Create React App
+# 소셜 로그인 구현
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 개요
 
-## Available Scripts
+`React.js` `styled-components` `recoil` `Firebase/auth` `Naver open API` `Kakao open API`
 
-In the project directory, you can run:
+- 위 기술 및 도구를 이용해서 구현했습니다.
 
-### `npm start`
+## 설명
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- 구글/깃허브 계정 로그인은 `Firebase` 인증 시스템을 활용하여 구현했습니다. 동일한 이메일로 두 플랫폼에 동시에 로그인 시도 시 에러가 있습니다.
+- 카카오 계정 로그인은 REST API를 사용했습니다만 인가코드를 받아오는데는 성공했으나 계정정보는 받아오지 못했습니다.
+- 네이버 계정 로그인은 cdn 방식으로 구현했습니다. 토큰을 받아오는데는 성공했으나 계정정보를 받아오지는 못했습니다.
+- 로그인 하면 구글/깃허브 계정에 한해 디스플레이네임을 띄워주며 로그아웃 버튼이 보여집니다.
